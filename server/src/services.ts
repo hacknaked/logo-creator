@@ -25,6 +25,16 @@ export class LogoService {
     return Math.floor(scaledSeed)
   }
 
+  static buildPrompt(input: GenerateLogoInput): string {
+    const { logoStyle, companyDescription, customPrompt } = input
+    const prompt = [ 
+      mustache.render(promptTemplates[logoStyle], input),
+      companyDescription ? 'The company description is: ' + companyDescription : '',
+      customPrompt
+    ]
+    return prompt.join(' ')
+  }
+
   async getAllLogos(): Promise<Logo[]> {
     return await db.logo.findMany({
       orderBy: {
@@ -34,8 +44,7 @@ export class LogoService {
   }
 
   async generateLogo(input: GenerateLogoInput): Promise<Logo> {
-    const { logoStyle } = input
-    const prompt = mustache.render(promptTemplates[logoStyle], input)
+    const prompt = LogoService.buildPrompt(input)
     const seed = LogoService.randomSeed()
     const logoId = this.createId()
     const cdnPath = `/logos/${logoId}.jpg`

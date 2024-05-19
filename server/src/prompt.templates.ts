@@ -33,7 +33,7 @@ const promptTemplates = {
         inclusivity, and solidarity.
     `,
     [LogoStyle.ConnectedWorld]: `
-        Design a logo that symbolizes the connectedness of company "{{companyName}}" across the globe. 
+        Design a logo that symbolizes the connectedness "{{companyName}}" across the globe. 
         Utilize globe elements, network patterns, and vibrant {{color}} colors to represent the global 
         reach and impact of stable diffusion.
     `,
