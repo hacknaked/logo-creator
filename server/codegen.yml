@@ -1,0 +1,7 @@
+schema: ./src/api.sdl.ts
+generates:
+  ./src/types/graphql.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-resolvers

@@ -1,0 +1,9 @@
+-- CreateTable
+CREATE TABLE "Logo" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "prompt" TEXT NOT NULL,
+    "seed" INTEGER NOT NULL,
+    "url" TEXT NOT NULL,
+    "score" INTEGER,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
