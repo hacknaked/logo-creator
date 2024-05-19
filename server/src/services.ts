@@ -1,23 +1,10 @@
+import mustache from 'mustache'
 import { init } from '@paralleldrive/cuid2'
 import { generateAILogo, uploadToCDN, execPipeline, AIModel } from './streams'
 import { GenerateLogoInput, Logo } from './types/graphql'
 import { CDN_PUBLIC_URL } from './config'
+import promptTemplates from './prompt.templates'
 import db from './db'
-
-export enum LogoStyle {
-  Minimalist = 'minimalist',
-  Elegant = 'elegant',
-  Abstract = 'abstract',
-  Modern = 'modern'
-}
-
-export enum FontStyle {
-  Serif = 'serif',
-  SansSerif = 'sans-serif',
-  Monospace = 'monospace',
-  Cursive = 'cursive',
-  Fantasy = 'fantasy'
-}
 
 export class LogoService {
   static MAX_SEED_VALUE = 1024 * 1024
@@ -30,23 +17,6 @@ export class LogoService {
       random: Math.random,
       length: logoIdLength
     })
-  }
-
-  static buildPrompt(fields: GenerateLogoInput): string {
-    // const prompt = [
-    //   `Create a ${fields.style} picture logo for "${fields.companyName}"`,
-    //   "that reflects our brand's commitment to simplicity and elegance",
-    //   'include the company name but do NOT change it',
-    //   'use an empty white background'
-    // ]
-    const prompt = [
-      `Create a logo for a shop named "${fields.companyName}"`,
-      'natural elegance',
-      'consider incorporating organic shapes',
-      'subtle gradients',
-      'and earthy tones to convey a sense of stability and elegance'
-    ]
-    return prompt.join(', ')
   }
 
   static randomSeed(): number {
@@ -63,8 +33,9 @@ export class LogoService {
     })
   }
 
-  async generateLogo(input: GenerateLogoInput) {
-    const prompt = LogoService.buildPrompt(input)
+  async generateLogo(input: GenerateLogoInput): Promise<Logo> {
+    const { logoStyle } = input
+    const prompt = mustache.render(promptTemplates[logoStyle], input)
     const seed = LogoService.randomSeed()
     const logoId = this.createId()
     const cdnPath = `/logos/${logoId}.jpg`

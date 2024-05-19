@@ -17,7 +17,11 @@ export type Scalars = {
 };
 
 export type GenerateLogoInput = {
+  color: Scalars['String']['input'];
+  companyDescription?: InputMaybe<Scalars['String']['input']>;
   companyName: Scalars['String']['input'];
+  customPrompt?: InputMaybe<Scalars['String']['input']>;
+  logoStyle: LogoStyle;
 };
 
 export type Logo = {
@@ -27,6 +31,17 @@ export type Logo = {
   score?: Maybe<Scalars['Int']['output']>;
   url: Scalars['String']['output'];
 };
+
+export enum LogoStyle {
+  CommunityUnity = 'CommunityUnity',
+  ConnectedWorld = 'ConnectedWorld',
+  FuturisticVibes = 'FuturisticVibes',
+  HarmoniousIntegration = 'HarmoniousIntegration',
+  Minimalistic = 'Minimalistic',
+  NaturalElegance = 'NaturalElegance',
+  PowerAndStrength = 'PowerAndStrength',
+  TranquilityAndSerenity = 'TranquilityAndSerenity'
+}
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -118,6 +133,7 @@ export type ResolversTypes = {
   GenerateLogoInput: GenerateLogoInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Logo: ResolverTypeWrapper<Logo>;
+  LogoStyle: LogoStyle;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;

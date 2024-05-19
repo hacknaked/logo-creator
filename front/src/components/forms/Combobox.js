@@ -4,10 +4,12 @@ import { Combobox } from "@headlessui/react";
 import { classNames } from "src/utils";
 
 export default function ComboboxComponent({ name, label, values }) {
-  const anotatedValues = values.map((value, index) => ({
-    id: index,
-    name: value,
-  }));
+  const anotatedValues = values.map((value) => {
+    return typeof value === 'string' 
+    ? {id: value, name: value} 
+    : {id: value?.id, name: value?.name}
+  }
+);
   const [selectedValue, setSelectedValue] = useState(anotatedValues[0]);
 
   return (

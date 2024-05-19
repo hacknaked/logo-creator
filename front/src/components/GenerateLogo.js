@@ -6,20 +6,18 @@ import Form from "./forms/Form";
 import Textfield from "./forms/Textfield";
 import Textarea from "./forms/Textarea";
 
-const logoStyles = [
-  "Minimalistic",
-  "Power and strength",
-  "Harmonious integration",
-  "Futuristic vibes",
-  "Community unity",
-  "Connected world",
-  "Simplicity in complexity",
-  "Bold innovation",
-  "Natural elegance",
-  "Responsible finance",
+const logoStyleValues = [
+  {id: "Minimalistic", name: "Minimalistic"},
+  {id: "PowerAndStrength", name: "Power and strength"},
+  {id: "NaturalElegance", name: "Natural elegance"},
+  {id: "HarmoniousIntegration", name: "Harmonious integration"},
+  {id: "FuturisticVibes", name: "Futuristic vibes"},
+  {id: "CommunityUnity", name: "Community unity"},
+  {id: "ConnectedWorld", name: "Connected world"},
+  {id: "TranquilityAndSerenity", name: "Tranquility and serenity"},
 ];
 
-const colors = [
+const colorValues = [
   "Oceanic blues",
   "Earthy tones",
   "Sunset oranges",
@@ -52,13 +50,13 @@ const GenerateLogo = () => {
   return (
     <div className="mx-auto max-w-[520px] p-1">
       <Form mutation={GENERATE_LOGO} onCompleted={onCompleted}>
-        <Textfield name="companyName" label="Company name" />
+        <Textfield name="companyName" label="Company name" required={true} />
         <Textarea
           name="companyDescription"
           label="Brief description of the company or service"
         />
-        <Combobox name="logoStyles" label="Logo style" values={logoStyles} />
-        <Combobox name="colors" label="Colors" values={colors} />
+        <Combobox name="logoStyle" label="Logo style" values={logoStyleValues} />
+        <Combobox name="color" label="Colors" values={colorValues} />
         <Textarea name="customPrompt" label="Custom AI prompt" />
       </Form>
     </div>
