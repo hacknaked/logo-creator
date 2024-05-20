@@ -27,9 +27,11 @@ export class LogoService {
 
   static buildPrompt(input: GenerateLogoInput): string {
     const { logoStyle, companyDescription, customPrompt } = input
-    const prompt = [ 
+    const prompt = [
       mustache.render(promptTemplates[logoStyle], input),
-      companyDescription ? 'The company description is: ' + companyDescription : '',
+      companyDescription
+        ? 'The company description is: ' + companyDescription
+        : '',
       customPrompt
     ]
     return prompt.join(' ')
