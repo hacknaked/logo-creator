@@ -7,10 +7,10 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "build": "npm run codegen && tsc",
+    "build": "npm run codegen && tsc && npm run syncdb",
     "syncdb": "npx prisma migrate dev --schema src/db/schema.prisma && npx prisma generate --schema src/db/schema.prisma",
     "codegen": "graphql-codegen",
-    "start": "npm run build && npm run syncdb && node ./dist/main.js",
+    "start": "node ./dist/main.js",
     "lint": "eslint . --ext .ts --fix",
     "prettier": "prettier --config .prettierrc '**/*.ts' --write"
   },
