@@ -1,4 +1,4 @@
-src/types/graphql.ts
+server/src/types
 
 **/*node_modules
 coverage
@@ -8,4 +8,3 @@ dist
 **/*.sqlite
 **/*.jpg
 **/*.webp
-
