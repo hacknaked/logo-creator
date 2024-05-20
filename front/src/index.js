@@ -1,12 +1,13 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { ApolloProvider, InMemoryCache, ApolloClient } from "@apollo/client";
+import { GRAPHQL_SERVER_URL } from "./config";
 
 import App from "src/App";
 import "src/index.css";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/",
+  uri: GRAPHQL_SERVER_URL,
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
