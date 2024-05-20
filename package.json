@@ -1,0 +1,16 @@
+{
+  "name": "ai-logo-service",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "workspaces": [
+    "server",
+    "front"
+  ],
+  "scripts": {
+    "start:server": "npm run start --workspace=server",
+    "start:front": "npm run start --workspace=front"
+  }
+}
