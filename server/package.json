@@ -7,13 +7,12 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "build": "tsc",
-    "syncdb": "npx prisma migrate dev --schema src/db/schema.prisma",
+    "build": "npm run codegen && tsc",
+    "syncdb": "npx prisma migrate dev --schema src/db/schema.prisma && npx prisma generate --schema src/db/schema.prisma",
     "codegen": "graphql-codegen",
-    "start": "npm run build && npx prisma generate --schema src/db/schema.prisma && node --env-file=.env ./dist/main.js",
+    "start": "npm run build && npm run syncdb && node ./dist/main.js",
     "lint": "eslint . --ext .ts --fix",
-    "prettier": "prettier --config .prettierrc '**/*.ts' --write",
-    "tests": "DATABASE_URL='file:./test.sqlite' npx prisma migrate dev && DATABASE_URL='file:./test.sqlite' npx jest --verbose --coverage"
+    "prettier": "prettier --config .prettierrc '**/*.ts' --write"
   },
   "keywords": [],
   "author": "",
@@ -43,6 +42,7 @@
     "@paralleldrive/cuid2": "^2.2.2",
     "@prisma/client": "^5.14.0",
     "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",

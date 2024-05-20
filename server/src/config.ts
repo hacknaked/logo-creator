@@ -1,3 +1,6 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 export const BUNNY_ACCESS_KEY = env('BUNNY_ACCESS_KEY')
 export const BUNNY_HOSTNAME = env('BUNNY_HOSTNAME', 'ny.storage.bunnycdn.com')
 export const BUNNY_STORAGE_ZONE = env('BUNNY_STORAGE_ZONE', 'us-newyork')
