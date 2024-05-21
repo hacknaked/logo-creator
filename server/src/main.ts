@@ -2,30 +2,34 @@ import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
 
 import { LogoService } from './services'
+import { logger } from './logger'
 import typeDefs from './api.sdl'
 
 async function main() {
-  const service = new LogoService()
-
-  const resolvers = {
-    Query: {
-      logos: async () => service.getAllLogos()
-    },
-    Mutation: {
-      generateLogo: (_parent, { input }) => service.generateLogo(input)
-    }
+  try {
+    const service = new LogoService()
+    const server = new ApolloServer({
+      typeDefs,
+      resolvers: {
+        Query: {
+          logos: async () => service.getAllLogos()
+        },
+        Mutation: {
+          generateLogo: (_parent, { input }) => {
+            logger.info({ req: input })
+            return service.generateLogo(input)
+          }
+        }
+      }
+    })
+    const { url } = await startStandaloneServer(server, {
+      listen: { port: 4000 }
+    })
+    logger.info(`🚀 Server ready at ${url}`)
+  } catch (err) {
+    logger.error(err)
   }
-
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers
-  })
-
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 }
-  })
-  console.log(`🚀 Server ready at ${url}`)
 }
 
 // -- entry point --
-main().catch((err) => console.error(err))
+main().catch((err) => logger.error(`Unexpected error: ${err}`))

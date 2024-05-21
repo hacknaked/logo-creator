@@ -10,6 +10,9 @@
     "front"
   ],
   "scripts": {
+    "build": "npm run build:server && npm run build:front",
+    "build:server": "npm run build --workspace=server",
+    "build:front": "npm run build --workspace=front",
     "start:server": "npm run start --workspace=server",
     "start:front": "npm run start --workspace=front"
   }

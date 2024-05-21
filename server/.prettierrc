@@ -2,6 +2,5 @@
   "semi": false,
   "trailingComma": "none",
   "singleQuote": true,
-  "printWidth": 80,
-  "maxEmptyLines": 2
+  "printWidth": 80
 }

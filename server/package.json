@@ -11,8 +11,8 @@
     "syncdb": "npx prisma migrate dev --schema src/db/schema.prisma && npx prisma generate --schema src/db/schema.prisma",
     "codegen": "graphql-codegen",
     "start": "node ./dist/main.js",
-    "lint": "eslint . --ext .ts --fix",
-    "prettier": "prettier --config .prettierrc '**/*.ts' --write"
+    "lint": "eslint . --ext .ts --fix --ignore-pattern src/types",
+    "prettier": "prettier --ignore-path src/types/* --config .prettierrc '**/*.ts' --write"
   },
   "keywords": [],
   "author": "",
@@ -47,8 +47,11 @@
     "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",
     "mustache": "^4.2.0",
+    "pino": "^9.1.0",
+    "pino-pretty": "^11.0.0",
     "prisma": "^5.11",
     "pump": "^3.0.0",
+    "sharp": "^0.33.4",
     "sqlite3": "^5.1.7",
     "validator": "^13.12"
   },

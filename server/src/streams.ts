@@ -1,6 +1,7 @@
-import { Readable, Writable } from 'stream'
+import { Readable, Transform, Writable } from 'stream'
 import axios from 'axios'
 import pump from 'pump'
+import sharp from 'sharp'
 
 import {
   BUNNY_ACCESS_KEY,
@@ -62,7 +63,54 @@ export const generateAILogo = (
   })
 }
 
-export const uploadToCDN = (remotePath) => {
+/**
+ * Creates a Transform Stream to resize an image.
+ * @param {number} width - The desired width of the image.
+ * @param {number} [height=null] - The desired height of the image (optional).
+ * @param {string} [format=null] - The desired format of the image (optional).
+ * @returns {Transform} - Transform Stream for resizing an image.
+ */
+export const resizeImage = (
+  width: number,
+  height: number | null = null,
+  format: string | null = null
+): Transform => {
+  const transformer: Transform = new Transform({
+    transform(chunk, encoding, callback) {
+      // This function is called for each chunk of data
+      // Resize the chunk using sharp
+      let image = sharp(chunk)
+
+      if (width && height) {
+        image = image.resize(width, height)
+      } else {
+        image = image.resize(width)
+      }
+      if (format) {
+        image = image.toFormat(sharp.format[format])
+      }
+
+      // Pass the modified chunk to the callback
+      image.toBuffer((err, data) => {
+        if (err) {
+          return callback(err)
+        }
+        callback(null, data)
+      })
+    }
+  })
+  return transformer
+}
+
+/**
+ * Uploads a file to a CDN using a writable stream.
+ * This function creates a writable stream that uploads data to a specified
+ * remote path on a CDN.
+ *
+ * @param {string} remotePath - The remote path on the CDN where the file will be uploaded.
+ * @returns {Writable} A writable stream that uploads data to the specified CDN endpoint.
+ */
+export const uploadToCDN = (remotePath: string): Writable => {
   const url = `https://${BUNNY_HOSTNAME}/${BUNNY_STORAGE_ZONE}${remotePath}`
   const headers = {
     AccessKey: BUNNY_ACCESS_KEY,

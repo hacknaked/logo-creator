@@ -1,7 +1,6 @@
 import gql from 'graphql-tag'
 
 export default gql`
-
   enum LogoStyle {
     Minimalistic
     NaturalElegance
