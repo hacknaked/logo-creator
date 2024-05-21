@@ -22,7 +22,6 @@ const Form = ({ children, mutation, onCompleted }) => {
         input[key] = value;
       }
     });
-    console.log(input);
     await runMutation({
       variables: { input },
     });
