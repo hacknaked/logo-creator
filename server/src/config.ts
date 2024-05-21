@@ -5,7 +5,7 @@ export const BUNNY_ACCESS_KEY = env('BUNNY_ACCESS_KEY')
 export const BUNNY_HOSTNAME = env('BUNNY_HOSTNAME', 'ny.storage.bunnycdn.com')
 export const BUNNY_STORAGE_ZONE = env('BUNNY_STORAGE_ZONE', 'us-newyork')
 export const CDN_PUBLIC_URL = env('CDN_PUBLIC_URL', 'https://astonap.b-cdn.net')
-export const DATABASE_URL = env('DATABASE_URL', 'file:./dev.sqlite')
+export const DATABASE_URL = env('DATABASE_URL')
 export const STABILITY_API_KEY = env('STABILITY_API_KEY')
 
 /**

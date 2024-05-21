@@ -25,7 +25,7 @@ async function main() {
     const { url } = await startStandaloneServer(server, {
       listen: { port: 4000 }
     })
-    logger.info(`🚀 Server ready at ${url}`)
+    logger.info(`Server ready at ${url}`)
   } catch (err) {
     logger.error(err)
   }
