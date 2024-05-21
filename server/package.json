@@ -10,6 +10,7 @@
     "build": "npm run codegen && tsc && npm run syncdb",
     "syncdb": "npx prisma migrate dev --schema src/db/schema.prisma && npx prisma generate --schema src/db/schema.prisma",
     "codegen": "graphql-codegen",
+    "dev": "npm run build && npm start",
     "start": "node ./dist/main.js",
     "lint": "eslint . --ext .ts --fix --ignore-pattern src/types",
     "prettier": "prettier --ignore-path src/types/* --config .prettierrc '**/*.ts' --write"
