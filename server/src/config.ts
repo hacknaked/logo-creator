@@ -16,7 +16,7 @@ function env(varName: string, defaultValue: string | number = null): string {
   if (varName in process.env) {
     return String(process.env[varName])
   }
-  if (defaultValue !== null) {
+  if (defaultValue) {
     return String(defaultValue)
   }
   throw new Error(`Environment missing variable '${varName}'`)
